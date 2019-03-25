@@ -1,0 +1,7 @@
+twitter:
+  debug: true
+  oauth:
+    consumerKey: enter-consumer-key-here
+    consumerSecret: enter-consumer-secret-here
+    accessToken: enter-access-token-here
+    accessTokenSecret: enter-access-secret-here
