@@ -21,8 +21,15 @@ public class TwitterController {
 
   @PostMapping(value = "tweet")
   public ResponseEntity sendTweet(final String tweetMessage) {
-    log.info("Message recieved: {}", tweetMessage);
-    twitter.publish(tweetMessage);
+    log.info("Message received: {}", tweetMessage);
+    final String myMessage = null;
+    twitter.publish(myMessage);
     return ResponseEntity.ok("Message Successfully published");
+  }
+
+  @PostMapping(value = "hello-world")
+  public ResponseEntity helloWorld(final String message) {
+    log.info("Message received: {}", message);
+    return ResponseEntity.ok("you said: " + message);
   }
 }
