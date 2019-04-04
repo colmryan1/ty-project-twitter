@@ -1,7 +1,5 @@
 package com.ostk.workexperience.twittermachine.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import lombok.extern.log4j.Log4j2;
@@ -36,7 +34,7 @@ public class TwitterController {
   }
 
   @PostMapping(value = "challenge")
-  public ResponseEntity sendTweet(final List<String> messages) {
+  public ResponseEntity sendTweet(final String[] messages) {
     log.info("Message received: {}", messages);
     final String myMessage = null;
     twitter.publish(myMessage);
