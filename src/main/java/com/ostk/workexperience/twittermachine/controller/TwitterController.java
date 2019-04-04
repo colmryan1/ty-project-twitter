@@ -1,5 +1,7 @@
 package com.ostk.workexperience.twittermachine.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import lombok.extern.log4j.Log4j2;
@@ -31,5 +33,13 @@ public class TwitterController {
   public ResponseEntity helloWorld(final String message) {
     log.info("Message received: {}", message);
     return ResponseEntity.ok("you said: " + message);
+  }
+
+  @PostMapping(value = "challenge")
+  public ResponseEntity sendTweet(final List<String> messages) {
+    log.info("Message received: {}", messages);
+    final String myMessage = null;
+    twitter.publish(myMessage);
+    return ResponseEntity.ok("Message Successfully published");
   }
 }
