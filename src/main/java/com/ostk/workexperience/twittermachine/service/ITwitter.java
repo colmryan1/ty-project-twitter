@@ -8,4 +8,5 @@ import java.util.List;
 public interface ITwitter {
   void publish(String message) throws TwitterException;
   List<Status> search(String query) throws TwitterException;
+  void fetchTimeline() throws TwitterException;
 }

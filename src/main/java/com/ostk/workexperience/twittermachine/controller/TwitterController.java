@@ -48,7 +48,15 @@ public class TwitterController {
   public ResponseEntity searchTweets(final String queryString) {
     log.info("Searching for: {}", queryString);
     final String myMessage = null;
-    final List<Status> tweets = twitter.search(queryString); // <- Something in there might be broken
+    final List<Status> tweets = twitter.search(myMessage); // <- Something in there might be broken
     return ResponseEntity.ok("Got a bunch of tweets");
+  }
+
+  @PostMapping(value = "timeline")
+  public ResponseEntity fetchTimeline() {
+    log.info("Fetching Timeline");
+    //TODO: Response from twitter needs to be stored and returned
+    twitter.fetchTimeline();
+    return ResponseEntity.ok().build();
   }
 }
