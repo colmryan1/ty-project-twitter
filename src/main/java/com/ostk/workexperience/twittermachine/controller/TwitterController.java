@@ -3,6 +3,9 @@ package com.ostk.workexperience.twittermachine.controller;
 import javax.inject.Inject;
 
 import lombok.extern.log4j.Log4j2;
+import twitter4j.Status;
+
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +42,13 @@ public class TwitterController {
     final String myMessage = null;
     twitter.publish(myMessage);
     return ResponseEntity.ok("Message Successfully published");
+  }
+
+  @PostMapping(value = "search")
+  public ResponseEntity searchTweets(final String queryString) {
+    log.info("Searching for: {}", queryString);
+    final String myMessage = null;
+    final List<Status> tweets = twitter.search(queryString); // <- Something in there might be broken
+    return ResponseEntity.ok("Got a bunch of tweets");
   }
 }
