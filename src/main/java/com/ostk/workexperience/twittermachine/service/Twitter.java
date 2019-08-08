@@ -10,9 +10,13 @@ import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import org.springframework.util.ResourceUtils;
 
 @Log4j2
 @Named
@@ -61,6 +65,16 @@ public class Twitter implements ITwitter {
     }
     catch (final TwitterException e) {
       e.printStackTrace();
+    }
+  }
+
+  private File loadFile(){
+    try {
+      return ResourceUtils.getFile("classpath:images/testImage.png");
+    }
+    catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 }
