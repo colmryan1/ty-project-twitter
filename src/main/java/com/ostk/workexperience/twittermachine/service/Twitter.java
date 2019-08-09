@@ -3,78 +3,89 @@ package com.ostk.workexperience.twittermachine.service;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
 import lombok.extern.log4j.Log4j2;
-import twitter4j.Paging;
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Status;
-import twitter4j.TwitterException;
+import twitter4j.*;
+
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import org.springframework.util.ResourceUtils;
 
 @Log4j2
 @Named
 public class Twitter implements ITwitter {
 
-  @Inject
-  private twitter4j.Twitter twitter;
+    @Inject
+    private twitter4j.Twitter twitter;
 
-  @Override
-  public void publish(final String message) {
-    final Status result;
-    try {
-      result = twitter.updateStatus(message);
-      log.info("Successfully published [{}]", result.getText());
-    }
-    catch (final TwitterException e) {
-      e.printStackTrace();
-    }
-  }
+      @Override
+      public void publish(final String message) {
+        final Status result;
+        try {
+          result = twitter.updateStatus(message);
+          log.info("Successfully published [{}]", result.getText());
+        }
+        catch (final TwitterException e) {
+          e.printStackTrace();
+        }
+      }
 
-  @Override
-  public List<Status> search(String queryString) {
-    final Query query = new Query("query string");
-    query.setCount(5);
-    query.setResultType(Query.ResultType.popular);
-    query.setLocale(Locale.JAPAN.getLanguage());
-    QueryResult result;
-    try {
-      result = twitter.search(null);
-      log.info("Successfully got {} tweets", result.getCount());
-      return result.getTweets();
-    }
-    catch (final TwitterException e) {
-      e.printStackTrace();
-      return Collections.emptyList();
-    }
-  }
+      @Override
+      public List<Status> search(String queryString) {
+        final Query query = new Query(queryString);
+        query.setCount(5);
+        query.setResultType(Query.ResultType.popular);
+        query.setLocale(Locale.ENGLISH.getLanguage());
+        QueryResult result;
+        try {
+          result = twitter.search(query);
+          log.info("Successfully got {} tweets", result.getCount());
+          return result.getTweets();
+        }
+        catch (final TwitterException e) {
+          e.printStackTrace();
+          return Collections.emptyList();
+        }
+      }
 
-  @Override
-  public void fetchTimeline() {
-    Paging paging = new Paging();
-    paging.setCount(5);
-    try {
-      twitter.getHomeTimeline(paging);
-      log.info("Successfully got timeline");
-    }
-    catch (final TwitterException e) {
-      e.printStackTrace();
-    }
-  }
+        @Override
+        public List<Status> fetchTimeline() {
+            Paging paging = new Paging ();
+            paging.setCount (5);
+            try {
 
-  private File loadFile(){
-    try {
-      return ResourceUtils.getFile("classpath:images/testImage.png");
+                ResponseList<Status> result = twitter.getHomeTimeline (paging);
+                log.info ("Successfully got timeline");
+                return result;
+            } catch (final TwitterException e) {
+                e.printStackTrace ();
+                return Collections.emptyList ();
+            }
+
+      }
+
+        @Override
+        public void upload(File timon, String caption) {
+          try {
+                UploadedMedia um = twitter.tweets ().uploadMedia (timon);
+                StatusUpdate su = new StatusUpdate (caption);
+                su.setMediaIds (um.getMediaId ());
+                twitter.tweets ().updateStatus (su);
+                log.info ("Successfully Uploaded Media File");
+            } catch (final TwitterException e) {
+                e.printStackTrace ();
+            }
+
+
+
+
+
+
+        }
+
     }
-    catch (FileNotFoundException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-}
+
+
