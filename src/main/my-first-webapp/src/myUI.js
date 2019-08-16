@@ -19,7 +19,7 @@ class myUi extends Component {
         return (
             <div>
                 <h1 id='helloWorldHeader'>Hello World!</h1>
-                <input type='button' onClick={() => {this.publishTweet()}} value='I wont do anything'/>
+                <input type='button' onClick={() => {this.publishTweet()}} value='I\'m just a simple button/>
             </div>
         );
     }
