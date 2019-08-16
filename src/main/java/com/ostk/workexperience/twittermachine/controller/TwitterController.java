@@ -32,4 +32,12 @@ public class TwitterController {
     log.info("Message received: {}", message);
     return ResponseEntity.ok("you said: " + message);
   }
+
+  @PostMapping(value = "manyTweets")
+  public ResponseEntity sendTweet(final String[] messages) {
+    log.info("Message received: {}", messages);
+    final String myMessage = null;
+    twitter.publish(myMessage);
+    return ResponseEntity.ok("Message Successfully published");
+  }
 }
