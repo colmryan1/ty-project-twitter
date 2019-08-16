@@ -1,11 +1,10 @@
 twitter:
   debug: true
   oauth:
-    consumerKey: HZkenL7log1bEfGtRsGegCO3I
-    consumerSecret: Cl666wVJEy2JcCR3vDutlluRjQahUWylQ9ImNEe5HpplIQWNLs
-    accessToken: 1159043629958270976-WWH2O8LEz5SAbqsrJgIVPvGgn4hNW4
-    accessTokenSecret: YLroWFvOpYeBQ3oaKmaQXpeihiYrJm4S0AGySfBlCbOC2
-
+    consumerKey: enter-consumer-key-here
+    consumerSecret: enter-consumer-secret-here
+    accessToken: enter-access-token-here
+    accessTokenSecret: enter-access-secret-here
 
 
 
