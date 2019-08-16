@@ -1,7 +1,5 @@
 package com.ostk.workexperience.twittermachine.controller;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import org.springframework.http.ResponseEntity;
@@ -45,9 +43,16 @@ public class TwitterController {
   }
 
   @PostMapping(value = "Upload Image")
-  public ResponseEntity uploadMedia(final MultipartFile file, String message) {
+  public ResponseEntity uploadMedia(final MultipartFile file, final String message) {
     log.info("Message received: {}", message);
     twitter.publishMedia(file, message);
-    return ResponseEntity.ok ("Josh has been uploaded");
+    return ResponseEntity.ok("Josh has been uploaded");
+  }
+
+  @PostMapping(value = "timeline")
+  public ResponseEntity fetchTimeline() {
+    log.info("Fetching Timeline");
+    twitter.fetchTimeline();
+    return ResponseEntity.ok(null);
   }
 }
