@@ -1,11 +1,14 @@
 package com.ostk.workexperience.twittermachine.controller;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ostk.workexperience.twittermachine.service.Twitter;
 
@@ -39,5 +42,12 @@ public class TwitterController {
     final String myMessage = null;
     twitter.publish(myMessage);
     return ResponseEntity.ok("Message Successfully published");
+  }
+
+  @PostMapping(value = "Upload Image")
+  public ResponseEntity uploadMedia(final MultipartFile file, String message) {
+    log.info("Message received: {}", message);
+    twitter.publishMedia(file, message);
+    return ResponseEntity.ok ("Josh has been uploaded");
   }
 }
