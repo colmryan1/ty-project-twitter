@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ostk.workexperience.twittermachine.FileUtils;
 
 import lombok.extern.log4j.Log4j2;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -57,6 +59,23 @@ public class Twitter implements ITwitter {
       result = twitter.timelines().getHomeTimeline();
       log.info("Successfully got [{}] results", result.size());
       return result;
+    }
+    catch (final TwitterException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  @Override
+  public List<Status> search(String query) {
+    final QueryResult results;
+    final Query twitterQuery = new Query();
+    twitterQuery.setQuery("Google");
+    twitterQuery.setCount(0);
+    try {
+      results = twitter.search().search(twitterQuery);
+      log.info("Successfully got results");
+      return results.getTweets();
     }
     catch (final TwitterException e) {
       e.printStackTrace();

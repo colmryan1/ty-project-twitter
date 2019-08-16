@@ -1,5 +1,8 @@
 package com.ostk.workexperience.twittermachine.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ostk.workexperience.twittermachine.service.Twitter;
 
 import lombok.extern.log4j.Log4j2;
+import twitter4j.Status;
 
 @Log4j2
 @RestController
@@ -54,5 +58,14 @@ public class TwitterController {
     log.info("Fetching Timeline");
     twitter.fetchTimeline();
     return ResponseEntity.ok(null);
+  }
+
+  @PostMapping(value = "search")
+  public ResponseEntity searchTweets(final String query) {
+    log.info("Searching for: {}", query);
+    final List<Status> tweets = twitter.search(query);
+    final List<String> messages = new ArrayList<>();
+    messages.add(tweets.get(0).getText());
+    return ResponseEntity.ok(messages);
   }
 }

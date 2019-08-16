@@ -13,6 +13,8 @@ public interface ITwitter {
     void publishMedia(MultipartFile file, String message);
 
     List<Status> fetchTimeline();
+
+    List<Status> search(String query);
 }
 
 
